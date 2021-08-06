@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Страница проcмотра записи{ { group.title }} {% endblock %}
+{% block header %} Страница проcмотра записи {% endblock %}
+{% block content %}
+
+<main role="main" class="container">
+  <div class="row">
+    {% include "includes/author_card.html" %}
+
+    <div class="col-md-9">
+    <!-- Пост -->
+    <!-- Вывод ленты записей -->
+      <div class="container">
+      {% include "includes/post_item.html" with post=post_of_author %}
+      {% include "includes/comments.html" %}
+      </div>
+
+    </div>
+  </div>
+</main>
+
+{% endblock content%}
