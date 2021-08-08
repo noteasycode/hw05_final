@@ -63,12 +63,17 @@ def post_view(request, username, post_id):
     post_amt = author.author_posts.count()
     comments = Comment.objects.filter(post=post_of_author)
     form = CommentForm()
+    following = False
+    if request.user.is_authenticated:
+        if Follow.objects.filter(user=request.user, author=author).exists():
+            following = True
     context = {
         "author": author,
         "post_of_author": post_of_author,
         "post_amt": post_amt,
         "comments": comments,
         "form": form,
+        "following": following,
     }
     return render(request, "post.html", context)
 
@@ -136,29 +141,32 @@ def add_comment(request, username, post_id):
             {"form": form}
         )
     form = CommentForm()
-    return render(request, "includes/comments.html", {"form": form})
+    context = {
+        "post_of_author": post_of_author,
+        "form": form,
+    }
+    return render(request, "includes/comments.html", context)
 
 
 @login_required
 def follow_index(request):
-    follow = Follow.objects.filter(user=request.user)
-    post_list = Post.objects.filter(author__username=follow.author.username)
+    post_list = Post.objects.filter(author__following__user=request.user)
     paginator = Paginator(post_list, 10)
     page_number = request.GET.get("page")
     page = paginator.get_page(page_number)
     return render(
         request,
         "follow.html",
-        {"page": page, },
+        {"page": page}
     )
 
 
 @login_required
 def profile_follow(request, username):
-    author = get_object_or_404(User, username=username)
-    user = get_object_or_404(User, username=request.user)
-    if not Follow.objects.filter(author=author, user=user).exists():
-        Follow.objects.create(user_id=user.id, author_id=author.id)
+    if not request.user.username == username:
+        author = get_object_or_404(User, username=username)
+        Follow.objects.get_or_create(user_id=request.user.id, author_id=author.id)
+        return redirect("profile", username)
     return redirect("profile", username)
 
 
