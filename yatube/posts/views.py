@@ -44,15 +44,18 @@ def profile(request, username):
     if request.user.is_authenticated:
         if Follow.objects.filter(user=request.user, author=author).exists():
             following = True
+    follower_amt = Follow.objects.filter(author=author).count()
+    following_amt = Follow.objects.filter(user=author).count
     context = {"author": author,
                "post_amt": post_amt,
                "page": page,
                "following": following,
+               "follower_amt": follower_amt,
+               "following_amt": following_amt,
                }
     return render(request, "profile.html", context)
 
 
-@login_required()
 def post_view(request, username, post_id):
     post_of_author = get_object_or_404(
         Post,
@@ -67,6 +70,8 @@ def post_view(request, username, post_id):
     if request.user.is_authenticated:
         if Follow.objects.filter(user=request.user, author=author).exists():
             following = True
+    follower_amt = Follow.objects.filter(author=author).count()
+    following_amt = Follow.objects.filter(user=author).count
     context = {
         "author": author,
         "post_of_author": post_of_author,
@@ -74,6 +79,8 @@ def post_view(request, username, post_id):
         "comments": comments,
         "form": form,
         "following": following,
+        "follower_amt": follower_amt,
+        "following_amt": following_amt,
     }
     return render(request, "post.html", context)
 
