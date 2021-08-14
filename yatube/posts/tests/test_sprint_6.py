@@ -78,8 +78,8 @@ class TestsForSixthSprint(TestCase):
             follow=True
         )
         second_post = Post.objects.get(
-                text=form_data["text"],
-                image="posts/small.jpeg"
+            text=form_data["text"],
+            image="posts/small.jpeg"
         )
         pages_list = [
             reverse("index"),
@@ -92,8 +92,9 @@ class TestsForSixthSprint(TestCase):
             reverse("post", kwargs={
                 "username": second_post.author,
                 "post_id": second_post.pk
-                    })
-                         ]
+            }
+                    )
+        ]
 
         self.assertRedirects(response, reverse("index"))
         # Проверяем, увеличилось ли число постов

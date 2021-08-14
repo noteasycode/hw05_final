@@ -17,9 +17,12 @@ class Post(models.Model):
     objects: models.Manager()
     text = models.TextField()
     pub_date = models.DateTimeField("Дата публикации", auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="author_posts")
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="author_posts"
+    )
     group = models.ForeignKey(
-        Group, on_delete=models.CASCADE, related_name="group_posts", blank=True, null=True
+        Group, on_delete=models.CASCADE,
+        related_name="group_posts", blank=True, null=True
     )
     image = models.ImageField(upload_to="posts/", blank=True, null=True)
 
@@ -47,8 +50,12 @@ class Comment(models.Model):
 
 
 class Follow(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="follower")
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="follower"
+    )
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="following"
+    )
 
     def __str__(self):
         return f'{self.user} follows {self.author}'

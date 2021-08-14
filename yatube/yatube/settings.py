@@ -148,4 +148,3 @@ CASHES = {
         "KEY_PREFIX": "index_page",
     }
 }
-

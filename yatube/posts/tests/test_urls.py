@@ -34,11 +34,20 @@
 #     def test_urls_uses_correct_template(self):
 #         templates_url_names = {
 #             reverse("index"): "index.html",
-#             reverse("group", kwargs={"slug": GroupURLTests.group.slug}): "group.html",
+#             reverse("group", kwargs={
+#                 "slug": GroupURLTests.group.slug}): "group.html",
 #             reverse("new_post"): "new.html",
-#             reverse("profile", kwargs={"username": self.user}): "profile.html",
-#             reverse("post", kwargs={"username": self.user, "post_id": GroupURLTests.post.pk}): "post.html",
-#             reverse("edit", kwargs={"username": self.user, "post_id": GroupURLTests.post.pk}): "new.html",
+#             reverse("profile", kwargs={
+#                 "username": self.user}): "profile.html",
+#             reverse("post", kwargs={
+#                 "username": self.user,
+#                 "post_id": GroupURLTests.post.pk
+#             }
+#                     ): "post.html",
+#             reverse("edit", kwargs={
+#                 "username": self.user,
+#                 "post_id": GroupURLTests.post.pk}
+#                     ): "new.html",
 #         }
 #         for adress, template in templates_url_names.items():
 #             with self.subTest(adress=adress):

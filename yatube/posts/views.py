@@ -118,7 +118,8 @@ def post_edit(request, username, post_id):
     if request.method == "POST":
         if form.is_valid():
             form.save()
-            return redirect("post", username=request.user.username, post_id=post_id)
+            return redirect(
+                "post", username=request.user.username, post_id=post_id)
 
     context = {
         "form": form, "post": post, "header": header, "action": action,
@@ -172,7 +173,9 @@ def follow_index(request):
 def profile_follow(request, username):
     if not request.user.username == username:
         author = get_object_or_404(User, username=username)
-        Follow.objects.get_or_create(user_id=request.user.id, author_id=author.id)
+        Follow.objects.get_or_create(
+            user_id=request.user.id,
+            author_id=author.id)
         return redirect("profile", username)
     return redirect("profile", username)
 
