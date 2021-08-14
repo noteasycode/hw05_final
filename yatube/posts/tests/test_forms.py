@@ -85,14 +85,13 @@
 #             "author": self.user,
 #             "group": PostCreateFormTests.group.id,
 #         }
-#         response = self.authorized_client.post(reverse(
-#             "edit", kwargs={
+#         response = self.authorized_client.post(
+#             reverse(
+#                 "edit", kwargs={
 #                 "username": self.user,
 #                 "post_id": PostCreateFormTests.test_post.pk,
-#             }
-#         ),
-#             data=form_data,
-#             follow=True
+#                 }
+#             ), data=form_data, follow=True
 #         )
 #         first_object = response.context["post_of_author"]
 #         post_text = first_object.text

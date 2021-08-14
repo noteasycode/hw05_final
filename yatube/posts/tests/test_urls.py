@@ -42,12 +42,11 @@ class GroupURLTests(TestCase):
             reverse("post", kwargs={
                 "username": self.user,
                 "post_id": GroupURLTests.post.pk
-            }
-                    ): "post.html",
+            }): "post.html",
             reverse("edit", kwargs={
                 "username": self.user,
-                "post_id": GroupURLTests.post.pk}
-                    ): "new.html",
+                "post_id": GroupURLTests.post.pk
+            }): "new.html",
         }
         for adress, template in templates_url_names.items():
             with self.subTest(adress=adress):
@@ -80,6 +79,7 @@ class GroupURLTests(TestCase):
             "/test_author/1/edit/",
             follow=True
         )
-        self.assertRedirects(response,
-                             "/auth/login/?next=/test_author/1/edit/"
-                             )
+        self.assertRedirects(
+            response,
+            "/auth/login/?next=/test_author/1/edit/"
+        )
