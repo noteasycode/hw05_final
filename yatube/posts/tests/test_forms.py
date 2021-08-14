@@ -3,7 +3,7 @@
 # from django.test import Client, TestCase
 # from django.urls import reverse
 #
-# from .. models import Comment, Group, Post
+# from .. models import Group, Post
 #
 # User = get_user_model()
 #
@@ -61,7 +61,7 @@
 #     def test_create_post_unauthorized_client(self):
 #         form_data = {
 #             "text": "Unauthorized post",
-#             "author": self.user.username,
+#             "author": self.user,
 #             "group": PostCreateFormTests.group.id,
 #         }
 #         # Отправляем POST-запрос
@@ -82,12 +82,12 @@
 #     def test_edit_post(self):
 #         form_data = {
 #             "text": "changed-post",
-#             "author": self.user.username,
+#             "author": self.user,
 #             "group": PostCreateFormTests.group.id,
 #         }
 #         response = self.authorized_client.post(reverse(
 #             "edit", kwargs={
-#                 "username": self.user.username,
+#                 "username": self.user,
 #                 "post_id": PostCreateFormTests.test_post.pk,
 #             }
 #         ),

@@ -92,10 +92,7 @@ class TestsForSixthSprint(TestCase):
             reverse("post", kwargs={
                 "username": second_post.author,
                 "post_id": second_post.pk
-            }
-                    )
-        ]
-
+            })]
         self.assertRedirects(response, reverse("index"))
         # Проверяем, увеличилось ли число постов
         self.assertEqual(Post.objects.count(), posts_count + 1)
