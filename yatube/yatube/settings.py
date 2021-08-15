@@ -148,3 +148,5 @@ CASHES = {
         "KEY_PREFIX": "index_page",
     }
 }
+
+PAGES_OBG_AMT = 10

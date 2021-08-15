@@ -37,6 +37,10 @@ class TestsForSixthSprint(TestCase):
     def tearDownClass(cls):
         super().tearDownClass()
         shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
+        Group.objects.delete()
+        Post.objects.delete()
+        Follow.objects.all().delete()
+        Comment.objects.all().delete()
 
     def setUp(self):
         self.user = TestsForSixthSprint.test_post.author
