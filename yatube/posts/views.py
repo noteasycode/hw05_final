@@ -6,7 +6,7 @@ from django.core.cache import cache
 from django.views.decorators.http import require_GET
 
 from .forms import PostForm, CommentForm
-from .models import Comment, Follow, Group, Post, User
+from .models import Follow, Group, Post, User
 
 
 @require_GET
