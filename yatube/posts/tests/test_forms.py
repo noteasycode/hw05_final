@@ -88,8 +88,8 @@ class PostCreateFormTests(TestCase):
         response = self.authorized_client.post(
             reverse(
                 "edit", kwargs={
-                "username": self.user,
-                "post_id": PostCreateFormTests.test_post.pk,
+                    "username": self.user,
+                    "post_id": PostCreateFormTests.test_post.pk,
                 }
             ), data=form_data, follow=True
         )
