@@ -29,10 +29,6 @@ class PaginatorViewsTest(TestCase):
             for obj in self.objects.all()
         ]
 
-    def tearDown(self):
-        Group.objects.all().delete()
-        Post.objects.all().delete()
-
     def test_page_contains_ten_records(self):
         pages_list = [
             reverse("index"),
