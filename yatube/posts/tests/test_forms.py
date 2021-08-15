@@ -58,9 +58,6 @@ class PostCreateFormTests(TestCase):
             form_data["group"]
         )
 
-    def tearDown(self):
-        super().tearDown()
-
     def test_create_post_unauthorized_client(self):
         form_data = {
             "text": "Unauthorized post",
@@ -81,9 +78,6 @@ class PostCreateFormTests(TestCase):
             self.guest_client.get("/").context["page"][0].text,
             form_data["text"]
         )
-
-    def tearDown(self):
-        super().tearDown()
 
     def test_edit_post(self):
         form_data = {

@@ -22,10 +22,6 @@ class GroupURLTests(TestCase):
             group=cls.group,
         )
 
-    @classmethod
-    def tearDownClass(cls):
-        super().tearDownClass()
-
     def setUp(self):
         self.guest_client = Client()
         self.user = GroupURLTests.post.author
@@ -34,9 +30,6 @@ class GroupURLTests(TestCase):
         self.authorized_client.force_login(self.user)
         self.not_author_client = Client()
         self.not_author_client.force_login(self.not_author)
-
-    def tearDown(self) -> None:
-        super().tearDown()
 
     def test_urls_uses_correct_template(self):
         templates_url_names = {

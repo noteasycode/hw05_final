@@ -50,9 +50,6 @@ class TestsForSixthSprint(TestCase):
         self.introvert_client = Client()
         self.introvert_client.force_login(self.introvert)
 
-    def tearDown(self) -> None:
-        super().tearDown()
-
     def test_create_post_with_image(self):
         """Валидная форма создает запись в Post."""
         cache.clear()
