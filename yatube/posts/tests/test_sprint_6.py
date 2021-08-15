@@ -9,8 +9,8 @@ from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 from urllib.parse import quote
 
-from .. models import Comment, Follow, Group, Post
-from .. forms import PostForm
+from ..models import Comment, Follow, Group, Post
+from ..forms import PostForm
 
 TEMP_MEDIA_ROOT = tempfile.mktemp(dir=settings.BASE_DIR)
 User = get_user_model()
