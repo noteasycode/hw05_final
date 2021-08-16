@@ -121,7 +121,7 @@ class GroupURLTests(TestCase):
                 }
             ), follow=True)
         self.assertRedirects(response, reverse("profile", kwargs={
-                "username": self.user}))
+            "username": self.user}))
         self.assertEqual(Follow.objects.count(), 1)
 
     def test_profile_unfollow_url_authorized_client(self):
@@ -136,7 +136,7 @@ class GroupURLTests(TestCase):
                 }
             ), follow=True)
         self.assertRedirects(response, reverse("profile", kwargs={
-                "username": GroupURLTests.post.author}))
+            "username": GroupURLTests.post.author}))
         self.assertEqual(Follow.objects.count(), 0)
 
     def test_profile_follow_url_redirect_anonymous(self):
