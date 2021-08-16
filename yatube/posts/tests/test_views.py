@@ -4,7 +4,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 from django import forms
 
-from .. models import Group, Post
+from .. models import Follow, Group, Post
 
 User = get_user_model()
 
@@ -63,6 +63,18 @@ class PostPagesTests(TestCase):
         post_author_0 = first_object.author
         self.assertEqual(post_text_0, PostPagesTests.post.text)
         self.assertEqual(post_author_0, PostPagesTests.post.author)
+
+    def test_index_page_contains_cache(self):
+        test_post = Post.objects.create(text="Cached post", author=self.user)
+        cache.clear()
+        response = self.authorized_client.get(reverse("index"))
+        content = response.content
+        test_post.delete()
+        response = self.authorized_client.get(reverse("index"))
+        self.assertEqual(response.content, content)
+        cache.clear()
+        response = self.authorized_client.get(reverse("index"))
+        self.assertNotEqual(response.content, content)
 
     def test_group_page_shows_correct_context(self):
         """Шаблон group сформирован с правильным контекстом."""
@@ -141,6 +153,26 @@ class PostPagesTests(TestCase):
         response = self.authorized_client.get(reverse("group", kwargs={
             "slug": wrong_group.slug,
         }))
+        self.assertFalse(response.context["page"])
+
+    def test_follow_index_page_shows_correct_context(self):
+        """Пост автора попадает в ленту пользователя,
+        который на него подписан."""
+        post = Post.objects.create(
+            text="Post for followers",
+            author=self.not_author)
+        Follow.objects.create(
+            user=self.user,
+            author=self.not_author,
+        )
+        response = self.authorized_client.get(reverse("follow_index"))
+        self.assertEqual(response.context["page"][0].text, post.text)
+
+    def test_follow_index_page_dont_contain_unfollow_authors_posts(self):
+        Post.objects.create(
+            text="Post for followers",
+            author=self.not_author)
+        response = self.authorized_client.get(reverse("follow_index"))
         self.assertFalse(response.context["page"])
 
 
